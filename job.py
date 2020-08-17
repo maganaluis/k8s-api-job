@@ -2,6 +2,14 @@ import time
 import logging
 from kubernetes import config, client
 
+import socket
+from urllib3 import connection
+# workaround for azure load balancer issue
+connection.HTTPConnection.default_socket_options += [(socket.SOL_SOCKET, socket.SO_KEEPALIVE, 1),
+                                            (socket.IPPROTO_TCP, socket.TCP_KEEPIDLE, 60),
+                                            (socket.IPPROTO_TCP, socket.TCP_KEEPINTVL, 60),
+                                            (socket.IPPROTO_TCP, socket.TCP_KEEPCNT, 3)]
+
 logging.basicConfig(
     format='%(asctime)s %(levelname)-8s %(message)s',
     level = logging.DEBUG)

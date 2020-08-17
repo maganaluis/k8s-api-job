@@ -8,6 +8,7 @@ spec:
       serviceAccountName: k8s-api-job-sa
       containers:
       - name: k8s-api-job
-        image: lmagana92/k8s-api-job
+        imagePullPolicy: Always
+        image: lmagana92/k8s-api-job:fix
         command: ["python", "/job/job.py"]
       restartPolicy: Never
